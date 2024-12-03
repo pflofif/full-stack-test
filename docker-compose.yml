@@ -1,17 +1,16 @@
 version: '3.9'
 
 services:
-  backend:
-    build:
+  backend: # Сервіс бек енду
+    build: # кажемо куди йому дивтись, тобто "Поглянь в папку backend, там знайди файл докера і виконай його"
       context: ./backend
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
     environment:
-      DATABASE_URL: postgresql://postgres:password@db:5432/autosalon
+      DATABASE_URL: postgresql://postgres:password@db:5432/autosalon # задаємр підключення до БД
     depends_on:
-      db:
-        condition: service_healthy
+      - db # Робимо що запуститься тілтьки після того як запуститься наша БД
     volumes:
       - ./backend/src:/app/src
 
@@ -28,13 +27,8 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
       - ./db/init:/docker-entrypoint-initdb.d
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d autosalon"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
-  pgadmin:
+  pgadmin: # UI щоб дивитись дані в БД 
     container_name: pgadmin
     image: dpage/pgadmin4
     depends_on:

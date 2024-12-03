@@ -1,21 +1,22 @@
 FROM node:18.20.4
 
-# Set the working directory
+# Налаштовуємо директорію в як докер буде дивтись і запускати наш код
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Копіюємо package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
+# Встановлюємо пакети в app
 RUN npm install
 
-# Copy the rest of the application code
+# Копіюємо все в app
 COPY . .
 
+# Білдимо
 RUN npm run build
 
-# Expose the application port
+# Даємо порт 5000 для бек енду
 EXPOSE 5000
 
-# Start the application
+# Запускаємо
 CMD ["npm", "start"]

@@ -1,4 +1,4 @@
--- Create tables
+-- Створюємо таблиці
 CREATE TABLE IF NOT EXISTS brands (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS cars (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert initial data
+-- Задаємо початкові дані для тестів
 INSERT INTO brands (name, country) VALUES ('Toyota', 'Japan'), ('Ford', 'USA');
 INSERT INTO cars (brand_id, model, year, price) VALUES
 (1, 'Corolla', 2020, 20000),

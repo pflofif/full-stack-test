@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// PostgreSQL connection pool
+// PostgreSQL підєднання
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || 'postgresql://postgres:password@db:5432/autosalon',
 });
@@ -16,7 +16,7 @@ const pool = new Pool({
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// АПІ роути
 app.get('/api/brands', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM brands');
@@ -65,6 +65,7 @@ app.post('/api/cars', async (req, res) => {
   }
 });
 
+// запускаємо наш бек енд
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
